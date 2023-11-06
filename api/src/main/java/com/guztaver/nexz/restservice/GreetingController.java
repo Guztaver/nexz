@@ -1,8 +1,8 @@
 package com.guztaver.nexz.restservice;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 import org.springframework.web.bind.annotation.*;
+
+import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 @RequestMapping(method = RequestMethod.GET)
