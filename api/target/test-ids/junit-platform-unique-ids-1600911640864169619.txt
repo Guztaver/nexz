@@ -1,0 +1,1 @@
+[engine:junit-jupiter]/[class:com.guztaver.nexz.NexzApplicationTests]/[method:contextLoads()]
