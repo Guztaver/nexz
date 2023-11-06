@@ -15,7 +15,7 @@ private static final String template = "Hello, %s";
 private final java.util.concurrent.atomic.AtomicLong counter = new java.util.concurrent.atomic.AtomicLong();
 
 @GetMapping("/character")
-public Character character(@RequestParam(value = "name", defaultValue = "User") String name) {
-    return new Character(counter.incrementAndGet(), String.format(template, name), 16, "21/06/2006");
+public Character character(@RequestParam(value = "name", defaultValue = "User") String name, @RequestParam(value = "age", defaultValue = "1") int age, @RequestParam(value = "bornAt", defaultValue = "01/01/2001") String bornAt) {
+    return new Character(counter.incrementAndGet(), String.format(template, name), age, bornAt);
 }
 }
