@@ -1,6 +1,7 @@
-package com.guztaver.nexz.restservice;
+package com.guztaver.nexz.restservice.controllers;
 
-import com.guztaver.nexz.sqlhandler.CharacterRepository;
+import com.guztaver.nexz.restservice.entities.Character;
+import com.guztaver.nexz.restservice.repositories.CharacterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/character")
+@RequestMapping("/api/v3/character")
 public class CharacterController {
     @Autowired
     private CharacterRepository characterRepository;
