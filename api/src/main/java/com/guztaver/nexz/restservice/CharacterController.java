@@ -1,21 +1,36 @@
 package com.guztaver.nexz.restservice;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.guztaver.nexz.sqlhandler.CharacterRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import java.util.Optional;
 
 @RestController
-@RequestMapping(method = GET)
+@RequestMapping("/api/v1/character")
 public class CharacterController {
-private static final String template = "Hello, %s";
+    @Autowired
+    private CharacterRepository characterRepository;
 
-private final java.util.concurrent.atomic.AtomicLong counter = new java.util.concurrent.atomic.AtomicLong();
+    @PostMapping
+    public @ResponseBody HttpStatus addNewUser(@RequestParam String name, @RequestParam int age) {
+        var character = new Character();
 
-@GetMapping("/character")
-public Character character(@RequestParam(value = "name", defaultValue = "User") String name, @RequestParam(value = "age", defaultValue = "1") int age, @RequestParam(value = "bornAt", defaultValue = "01/01/2001") String bornAt) {
-    return new Character(counter.incrementAndGet(), String.format(template, name), age, bornAt);
-}
+        character.setName(name); character.setAge(age);
+
+        characterRepository.save(character);
+
+        return HttpStatus.ACCEPTED;
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Character> getUserById(@PathVariable("id") int id) {
+        return characterRepository.findById(id);
+    }
+
+    @GetMapping("/all")
+    public Iterable<Character> getAllUsers() {
+        return characterRepository.findAll();
+    }
 }

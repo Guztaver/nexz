@@ -25,15 +25,18 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    //TODO: Re-enable when SpringBoot updates to a new version, currentyl isn't working, (issue: https://github.com/spring-projects/spring-boot/issues/37982
-    //    developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jta-narayana', version: '2.0.9.RELEASE'
+    developmentOnly 'io.springfox:springfox-swagger2:3.0.0'
+    developmentOnly 'io.springfox:springfox-boot-starter:3.0.0'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    //TODO: Re-enable when SpringBoot updates to a new version, currently isn't working, (issue: https://github.com/spring-projects/spring-boot/issues/37982
+    //    developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compileOnly 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {
