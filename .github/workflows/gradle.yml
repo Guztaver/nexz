@@ -29,10 +29,14 @@ jobs:
         java-version: '20'
         distribution: 'temurin'
       
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@9bca466e2722baf9e77b4f929bbe0af18848791f 
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2.9.0
       with:
-        arguments: build
+        gradle-version: current
+        gradle-home-cache-cleanup: true
+    
+    - name: Execute build with Gradle wrapper
+      run: ./gradlew build
         
     - uses: actions/upload-artifact@v3
       with:
