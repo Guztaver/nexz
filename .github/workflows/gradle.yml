@@ -32,9 +32,11 @@ jobs:
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2.9.0
       with:
-        gradle-version: current
-        gradle-home-cache-cleanup: true
-    
+        gradle-version: 8.4
+
+    - name: Give execute permissions
+      run: chmod +x gradlew
+      
     - name: Execute build with Gradle wrapper
       run: ./gradlew build
         
