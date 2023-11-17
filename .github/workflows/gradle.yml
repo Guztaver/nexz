@@ -28,10 +28,14 @@ jobs:
       with:
         java-version: '20'
         distribution: 'temurin'
+    - name: Gradle Wrapper Validation
+      uses: gradle/wrapper-validation-action@v1.1.0
+      
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@9bca466e2722baf9e77b4f929bbe0af18848791f # v2.6.0
+      uses: gradle/gradle-build-action@9bca466e2722baf9e77b4f929bbe0af18848791f 
       with:
         arguments: build
+        
     - uses: actions/upload-artifact@v3
       with:
         name: Package
