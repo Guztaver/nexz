@@ -33,6 +33,7 @@ jobs:
       uses: gradle/gradle-build-action@v2.9.0
       with:
         gradle-version: 8.4
+        build-root-directory: api/
     - run: gradle build 
         
     - uses: actions/upload-artifact@v3
