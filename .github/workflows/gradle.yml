@@ -34,7 +34,7 @@ jobs:
       with:
         gradle-version: 8.4
         build-root-directory: api/
-    - run: gradle build 
+    - run: gradle -p api/ build 
         
     - uses: actions/upload-artifact@v3
       with:
