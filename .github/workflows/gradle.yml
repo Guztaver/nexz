@@ -17,11 +17,21 @@ permissions:
   contents: read
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-    
+    services:
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 20
@@ -29,18 +39,19 @@ jobs:
       with:
         java-version: '20'
         distribution: 'temurin'
-
-    - name: Create .env file
-      uses: ozaytsev86/create-env-file@v1
-      with:
-          INPUT_DB_USER: ${{ secrets.ENV }}    
       
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2.9.0
       with:
         gradle-version: 8.4
         build-root-directory: api/
-    - run: gradle -p api/ build 
+      env:
+        DB_USER: postgres
+        DB_PASSWORD: postgres
+        DB_URL: postgresql://127.0.0.1/public
+        PORT: 8080
+    - run: DB_URL=postgresql://127.0.0.1/public; DB_USER=postgres DB_PASSWORD=postgres; PORT=8080; gradle -p api/ build 
+    
         
     - uses: actions/upload-artifact@v3
       with:
