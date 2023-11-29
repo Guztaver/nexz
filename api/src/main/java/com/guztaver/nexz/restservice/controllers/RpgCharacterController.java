@@ -32,11 +32,12 @@ public class RpgCharacterController {
     public ResponseEntity<String> deleteUserById(@PathVariable("id") int id) {
         Optional<RpgCharacter> character = rpgCharacterRepository.findById(id);
 
-        if (character.isEmpty()) {
+        if (character.isPresent()) {
+            rpgCharacterRepository.deleteById(id);
+            return ResponseEntity.ok("DELETED");
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Personagem com ID "
                     + id + " não encontrado. Não foi possível deletar.");
-        } else {
-            rpgCharacterRepository.deleteById(id); return ResponseEntity.ok("DELETED");
         }
     }
 
@@ -46,24 +47,26 @@ public class RpgCharacterController {
                                                  @RequestParam int age) {
         Optional<RpgCharacter> optionalCharacter = rpgCharacterRepository.findById(id);
 
-        if (optionalCharacter.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Personagem com ID " + id +
-                    " não encontrado. Não foi possível atualizar.");
-        } else {
+        if (optionalCharacter.isPresent()) {
             RpgCharacter character = optionalCharacter.get(); character.setName(name); character.setAge(age);
             rpgCharacterRepository.save(character);
 
             return ResponseEntity.ok("UPDATED");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Personagem com ID " + id +
+                    " não encontrado. Não foi possível atualizar.");
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getUserById(@PathVariable("id") int id) {
+    public ResponseEntity<?> getUserById(@PathVariable("id") int id) {
         var character = rpgCharacterRepository.findById(id);
 
-        return character.map(rpgCharacter
-                -> ResponseEntity.ok(rpgCharacter.toString())).orElseGet(()
-                -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Personagem com ID " + id + " não encontrado."));
+        if (character.isPresent()) {
+            return ResponseEntity.ok().body(character);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Personagem do ID " + id + " não encontrado");
+        }
     }
 
     @GetMapping("/all")
@@ -92,16 +95,16 @@ public class RpgCharacterController {
     }
 
     @GetMapping("/{id}/attributes")
-    public ResponseEntity<String> getAttributesOfCharacter(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> getAttributesOfCharacter(@PathVariable("id") Integer id) {
         Optional<RpgCharacter> optionalCharacter = rpgCharacterRepository.findById(id);
 
-        if (optionalCharacter.isEmpty()) {
+        if (optionalCharacter.isPresent()) {
+            RpgAttributes attributes = optionalCharacter.get().getAttributes();
+            return ResponseEntity.ok(attributes != null ? attributes
+                    : "Nenhum atributo encontrado para o Personagem com ID: " + id);
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Personagem com ID " + id + " não encontrado. Não foi possível obter atributos.");
-        } else {
-            RpgAttributes attributes = optionalCharacter.get().getAttributes();
-            return ResponseEntity.ok(attributes != null ? attributes.toString()
-                    : "Nenhum atributo encontrado para o Personagem com ID: " + id);
         }
     }
 
@@ -117,7 +120,7 @@ public class RpgCharacterController {
             character.setAttributes(attributes);
             rpgCharacterRepository.save(character);
 
-            return ResponseEntity.ok("Attributes updated for Character with ID: " + id);
+            return ResponseEntity.ok("Atributos atualizados para o personagem ID: " + id);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Personagem com ID " + id + " não encontrado. Não foi possível atualizar atributos.");
@@ -159,7 +162,7 @@ public class RpgCharacterController {
 
             rpgCharacterRepository.save(character);
 
-            return ResponseEntity.ok("Additional attributes added to Character with ID: " + id);
+            return ResponseEntity.ok("Atributos adicionados ao personagem de ID: " + id);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Personagem com ID " + id +

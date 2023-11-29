@@ -1,6 +1,7 @@
 package com.guztaver.nexz.restservice.models;
 
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -9,7 +10,7 @@ import lombok.*;
 
 import java.io.Serializable;
 
-@Table(name = "characters")
+@Table(name = "rpg_character")
 @Entity
 @Getter
 @Setter
@@ -19,8 +20,8 @@ import java.io.Serializable;
 public class RpgCharacter implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "character_id_seq")
-    @SequenceGenerator(name = "character_seq_generator", sequenceName = "character_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rpg_character_seq_generator")
+    @SequenceGenerator(name = "rpg_character_seq_generator", sequenceName = "rpg_character_id_seq", allocationSize = 1)
     @Column(name = "ID", nullable = false, updatable = false)
     private Integer id;
 
@@ -31,10 +32,12 @@ public class RpgCharacter implements Serializable {
     private String name;
 
     @PositiveOrZero
-    @Column(name = "AGE", nullable = false)
+    @Column(name = "AGE")
     @Setter
-    private int age;
+    @Nullable
+    private Integer age;
 
     @Embedded
+    @Nullable
     private RpgAttributes attributes;
 }

@@ -35,7 +35,7 @@ public class RpgAttributes {
     @PositiveOrZero
     @Column(name = "DEXTERITY")
     @Setter
-    private Integer dexterity; // Use Integer instead of int
+    private Integer dexterity;
 
     @PositiveOrZero
     @Column(name = "INTELLIGENCE")
