@@ -1,7 +1,7 @@
 package com.guztaver.nexz;
 
 import com.guztaver.nexz.restservice.controllers.RpgCharacterController;
-import com.guztaver.nexz.restservice.entities.RpgCharacter;
+import com.guztaver.nexz.restservice.models.RpgCharacter;
 import com.guztaver.nexz.restservice.repositories.RpgCharacterRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
