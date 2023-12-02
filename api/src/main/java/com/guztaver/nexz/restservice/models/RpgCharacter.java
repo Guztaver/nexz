@@ -37,7 +37,13 @@ public class RpgCharacter implements Serializable {
     @Nullable
     private Integer age;
 
+    private String lore;
+
     @Embedded
     @Nullable
     private RpgAttributes attributes;
+
+    @Embedded
+    @Nullable
+    private RpgExpertise expertise;
 }

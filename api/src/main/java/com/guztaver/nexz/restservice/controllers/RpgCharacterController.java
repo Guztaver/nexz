@@ -71,6 +71,4 @@ public class RpgCharacterController {
     public ResponseEntity<Iterable<RpgCharacter>> getAllUsers() {
         return ResponseEntity.ok().body(rpgCharacterRepository.findAll());
     }
-
-    // Attributes
 }
