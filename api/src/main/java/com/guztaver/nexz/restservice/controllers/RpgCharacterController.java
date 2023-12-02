@@ -13,21 +13,21 @@ import java.util.Optional;
 @RequestMapping("/api/v3/character")
 public class RpgCharacterController {
     @Autowired
-    private RpgCharacterRepository rpgCharacterRepository;
+    RpgCharacterRepository rpgCharacterRepository;
 
     @PostMapping
-    public ResponseEntity<String> addNewUser(@RequestParam String name, @RequestParam int age) {
+    ResponseEntity<String> addNewUser(@RequestParam String name, @RequestParam int age) {
         var character = new RpgCharacter();
 
         character.setName(name); character.setAge(age);
 
         rpgCharacterRepository.save(character);
 
-        return ResponseEntity.ok("CREATED");
+        return ResponseEntity.ok().body("CREATED");
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUserById(@PathVariable("id") int id) {
+    ResponseEntity<String> deleteUserById(@PathVariable("id") int id) {
         Optional<RpgCharacter> character = rpgCharacterRepository.findById(id);
 
         if (character.isPresent()) {
@@ -40,7 +40,7 @@ public class RpgCharacterController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateUserById(@PathVariable("id") int id,
+    ResponseEntity<String> updateUserById(@PathVariable("id") int id,
                                                  @RequestParam String name,
                                                  @RequestParam int age) {
         Optional<RpgCharacter> optionalCharacter = rpgCharacterRepository.findById(id);
@@ -57,7 +57,7 @@ public class RpgCharacterController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable("id") int id) {
+    ResponseEntity<?> getUserById(@PathVariable("id") int id) {
         var character = rpgCharacterRepository.findById(id);
 
         if (character.isPresent()) {
@@ -67,8 +67,28 @@ public class RpgCharacterController {
         }
     }
 
+    @GetMapping("/{id}/lore")
+    ResponseEntity<String> getUserLore(@PathVariable("id") int id) {
+        var character = rpgCharacterRepository.findById(id);
+
+        return character.map(rpgCharacter
+                -> ResponseEntity.ok().body(rpgCharacter.getLore())).orElseGet(()
+                -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Persoangem do ID " + id + " não encontrado"));
+    }
+
+    @PostMapping("/{id}/lore")
+    ResponseEntity<String> addUserLore(@PathVariable("id") int id,
+                                       @RequestParam("lore") String lore) {
+        var character = new RpgCharacter();
+
+        character.setLore(lore);
+
+        rpgCharacterRepository.save(character);
+        return ResponseEntity.ok().body("CREATED");
+    }
+
     @GetMapping("/all")
-    public ResponseEntity<Iterable<RpgCharacter>> getAllUsers() {
+    ResponseEntity<Iterable<RpgCharacter>> getAllUsers() {
         return ResponseEntity.ok().body(rpgCharacterRepository.findAll());
     }
 }

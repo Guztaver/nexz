@@ -14,36 +14,28 @@ import java.util.Map;
 public class RpgAttributes {
     @PositiveOrZero
     @Column(name = "LIFE")
-    @Setter
     private Integer life;
 
     @PositiveOrZero
     @Column(name = "MANA")
-    @Setter
     private Integer mana;
 
     @PositiveOrZero
     @Column(name = "SANITY")
-    @Setter
     private Integer sanity;
 
     @PositiveOrZero
     @Column(name = "STRENGTH")
-    @Setter
     private Integer strength;
 
     @PositiveOrZero
     @Column(name = "DEXTERITY")
-    @Setter
     private Integer dexterity;
 
     @PositiveOrZero
     @Column(name = "INTELLIGENCE")
-    @Setter
     private Integer intelligence;
 
     @ElementCollection
-    @Getter
-    @Setter
     private Map<String, Integer> additionalAttributes = new HashMap<>();
 }

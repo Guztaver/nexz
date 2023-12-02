@@ -9,9 +9,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class RpgExpertise {
-
+public class RpgExpertises {
     @ElementCollection
-    @Setter
-    private Map<String, Integer> expertises = new HashMap<>();
+    private Map<String, Integer> additionalExpertises = new HashMap<>();
 }

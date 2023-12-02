@@ -27,23 +27,30 @@ public class RpgCharacter implements Serializable {
 
     @Size(max = 60)
     @NotBlank
-    @Column(name = "NAME", nullable = false)
     @Setter
+    @Column(name = "NAME", nullable = false)
     private String name;
 
     @PositiveOrZero
-    @Column(name = "AGE")
     @Setter
     @Nullable
+    @Column(name = "AGE")
     private Integer age;
 
+    @Setter
+    @Nullable
+    @Column(name = "LORE")
     private String lore;
 
     @Embedded
     @Nullable
+    @Setter
+    @Column(name = "ATTRIBUTES")
     private RpgAttributes attributes;
 
     @Embedded
     @Nullable
-    private RpgExpertise expertise;
+    @Setter
+    @Column(name = "EXPERTISES")
+    private RpgExpertises expertises;
 }

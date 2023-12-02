@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Optional;
 
 
+@RestController
 @RequestMapping("/api/v3/character")
 public class RpgAttributesController {
 
@@ -19,7 +20,7 @@ public class RpgAttributesController {
     private RpgCharacterRepository rpgCharacterRepository;
 
     @PostMapping("/{id}/attributes")
-    public ResponseEntity<String> addAttributesToCharacter(
+    ResponseEntity<String> addAttributesToCharacter(
             @PathVariable("id") Integer id,
             @RequestBody RpgAttributes attributes) {
 
@@ -38,7 +39,7 @@ public class RpgAttributesController {
     }
 
     @GetMapping("/{id}/attributes")
-    public ResponseEntity<?> getAttributesOfCharacter(@PathVariable("id") Integer id) {
+    ResponseEntity<?> getAttributesOfCharacter(@PathVariable("id") Integer id) {
         Optional<RpgCharacter> optionalCharacter = rpgCharacterRepository.findById(id);
 
         if (optionalCharacter.isPresent()) {
@@ -52,7 +53,7 @@ public class RpgAttributesController {
     }
 
     @PutMapping("/{id}/attributes")
-    public ResponseEntity<String> updateAttributesOfCharacter(
+    ResponseEntity<String> updateAttributesOfCharacter(
             @PathVariable("id") Integer id,
             @RequestBody RpgAttributes attributes) {
 
@@ -71,7 +72,7 @@ public class RpgAttributesController {
     }
 
     @DeleteMapping("/{id}/attributes")
-    public ResponseEntity<String> deleteAttributesOfCharacter(@PathVariable("id") Integer id) {
+    ResponseEntity<String> deleteAttributesOfCharacter(@PathVariable("id") Integer id) {
         Optional<RpgCharacter> optionalCharacter = rpgCharacterRepository.findById(id);
 
         if (optionalCharacter.isPresent()) {
@@ -87,7 +88,7 @@ public class RpgAttributesController {
     }
 
     @PostMapping("/{id}/attributes/additional")
-    public ResponseEntity<String> addAdditionalAttributeToCharacter(
+    ResponseEntity<String> addAdditionalAttributeToCharacter(
             @PathVariable("id") Integer id,
             @RequestBody Map<String, Integer> additionalAttributes) {
 
