@@ -37,7 +37,7 @@ jobs:
         DB_PASSWORD: postgres
         DB_URL: postgresql://127.0.0.1/public
         PORT: 8080
-    - run: gradle -p api/ bootJar
+    - run: cd api; gradle bootJar
     - uses: actions/upload-artifact@v3
       with:
         name: Package
