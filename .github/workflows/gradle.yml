@@ -40,5 +40,5 @@ jobs:
     - run: cd api; gradle bootJar
     - uses: actions/upload-artifact@v3
       with:
-        name: Package
-        path: api/build/libs
+        name: JAR
+        path: api/build/libs/*.jar
