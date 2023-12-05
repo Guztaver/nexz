@@ -1,14 +1,10 @@
 package com.guztaver.nexz.restservice.controllers;
 
-import com.guztaver.nexz.restservice.models.RpgCharacter;
-import com.guztaver.nexz.restservice.models.RpgExpertises;
-import com.guztaver.nexz.restservice.repositories.RpgCharacterRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.guztaver.nexz.restservice.models.*;
+import com.guztaver.nexz.restservice.repositories.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v3/character")
@@ -21,7 +17,7 @@ public class RpgExpertiseController {
     ResponseEntity<String> addExpertiseToCharacter(@PathVariable("id") Integer id,
                                                    @RequestBody RpgExpertises expertise) {
 
-        Optional<RpgCharacter> optionalCharacter = rpgCharacterRepository.findById(id);
+        var optionalCharacter = rpgCharacterRepository.findById(id);
 
         if (optionalCharacter.isPresent()) {
             RpgCharacter character = optionalCharacter.get();
@@ -36,7 +32,7 @@ public class RpgExpertiseController {
 
     @GetMapping("/{id}/expertise")
     ResponseEntity<?> getExpertiseOfCharacter(@PathVariable("id") Integer id) {
-        Optional<RpgCharacter> optionalCharacter = rpgCharacterRepository.findById(id);
+        var optionalCharacter = rpgCharacterRepository.findById(id);
 
         if (optionalCharacter.isPresent()) {
             RpgExpertises expertise = optionalCharacter.get().getExpertises();
@@ -50,7 +46,7 @@ public class RpgExpertiseController {
     ResponseEntity<String> updateExpertiseOfCharacter(@PathVariable("id") Integer id,
                                                       @RequestBody RpgExpertises expertise) {
 
-        Optional<RpgCharacter> optionalCharacter = rpgCharacterRepository.findById(id);
+        var optionalCharacter = rpgCharacterRepository.findById(id);
 
         if (optionalCharacter.isPresent()) {
             RpgCharacter character = optionalCharacter.get();
@@ -65,7 +61,7 @@ public class RpgExpertiseController {
 
     @DeleteMapping("/{id}/expertise")
     ResponseEntity<String> deleteExpertiseOfCharacter(@PathVariable("id") Integer id) {
-        Optional<RpgCharacter> optionalCharacter = rpgCharacterRepository.findById(id);
+        var optionalCharacter = rpgCharacterRepository.findById(id);
 
         if (optionalCharacter.isPresent()) {
             RpgCharacter character = optionalCharacter.get();

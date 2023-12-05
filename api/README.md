@@ -24,7 +24,7 @@ In order to run the project, you need to set a `.env` file with that content:
 
 ```dotenv
 # Database details, such as username, password and the url, without it, the applicaiton will NOT run
-DB_USER=user
+DB_USER=appUser
 DB_PASSWORD=password
 DB_URL:postgresql:database.mysite.com:5432/databasename
 

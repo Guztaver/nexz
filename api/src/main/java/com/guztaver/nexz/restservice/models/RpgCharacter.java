@@ -1,14 +1,12 @@
 package com.guztaver.nexz.restservice.models;
 
 
-import jakarta.annotation.Nullable;
+import jakarta.annotation.*;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
-import java.io.Serializable;
+import java.io.*;
 
 @Table(name = "rpg_character")
 @Entity
@@ -22,7 +20,7 @@ public class RpgCharacter implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rpg_character_seq_generator")
     @SequenceGenerator(name = "rpg_character_seq_generator", sequenceName = "rpg_character_id_seq", allocationSize = 1)
-    @Column(name = "ID", nullable = false, updatable = false)
+    @Column(name = "CHARACTER_ID", nullable = false, updatable = false)
     private Integer id;
 
     @Size(max = 60)
