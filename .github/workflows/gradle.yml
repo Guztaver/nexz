@@ -19,19 +19,6 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        # Docker Hub image
-        image: postgres
-        # Provide the password for postgres
-        env:
-          POSTGRES_PASSWORD: postgres
-        # Set health checks to wait until postgres has started
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 20
@@ -50,10 +37,8 @@ jobs:
         DB_PASSWORD: postgres
         DB_URL: postgresql://127.0.0.1/public
         PORT: 8080
-    - run: DB_URL=postgresql://127.0.0.1/public; DB_USER=postgres DB_PASSWORD=postgres; PORT=8080; gradle -p api/ build 
-    
-        
+    - run: cd api; gradle bootJar
     - uses: actions/upload-artifact@v3
       with:
         name: Package
-        path: build/libs
+        path: api/build/libs
