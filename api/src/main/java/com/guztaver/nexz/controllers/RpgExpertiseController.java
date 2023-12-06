@@ -1,7 +1,7 @@
-package com.guztaver.nexz.restservice.controllers;
+package com.guztaver.nexz.controllers;
 
-import com.guztaver.nexz.restservice.models.*;
-import com.guztaver.nexz.restservice.repositories.*;
+import com.guztaver.nexz.models.*;
+import com.guztaver.nexz.repositories.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;

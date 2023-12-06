@@ -1,4 +1,4 @@
-package com.guztaver.nexz.restservice.models;
+package com.guztaver.nexz.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
