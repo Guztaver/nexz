@@ -27,15 +27,15 @@ public class AuthenticationController {
 
     @PostMapping
     public ResponseEntity<String> authenticate(@RequestBody @NotNull AppUser request) {
-        final var user = userRepository.findByUsernameIs(request.getUsername());
-        if (user != null) {
-            return ResponseEntity.ok().body(jwtUtil.generateToken(user));
-        }
-
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
         );
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("A error have ocurred!");
+        final var user = userRepository.findByUsernameIs(request.getUsername());
+        if (user != null) {
+            return ResponseEntity.ok().body(jwtUtil.generateToken(user));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("A error have ocurred!");
+        }
     }
 }
