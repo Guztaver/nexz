@@ -18,7 +18,11 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(jwtSigningKey).parseClaimsJws(token).getBody();
+        try {
+            return Jwts.parser().setSigningKey(jwtSigningKey).parseClaimsJws(token).getBody();
+        } catch (ExpiredJwtException | MalformedJwtException e) {
+            throw new RuntimeException("Error parsing JWT", e);
+        }
     }
 
     public Boolean isTokenValid(String token, UserDetails userDetails){
