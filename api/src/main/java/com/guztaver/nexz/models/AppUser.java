@@ -10,7 +10,7 @@ import java.util.*;
 
 @Table(name = "APP_USER")
 @Entity
-@Getter
+@Data
 @RequiredArgsConstructor
 public class AppUser implements UserDetails {
     @Id
